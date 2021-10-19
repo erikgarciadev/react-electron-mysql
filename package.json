@@ -1,21 +1,52 @@
 {
-  "name": "react-crud-companies",
+  "name": "react-electron",
   "version": "0.1.0",
   "private": true,
+  "description": "electron project with react",
+  "author": {
+    "name": "Erik Garcia"
+  },
   "dependencies": {
+    "@electron/remote": "^2.0.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "electron-is-dev": "^2.0.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "promise-mysql": "^5.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
+  "devDependencies": {
+    "electron": "^15.2.0",
+    "electron-builder": "~22.10.5",
+    "concurrently": "^6.3.0",
+    "wait-on": "^6.0.0"
+  },
+  "main": "public/electron.js",
+  "homepage": "./",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron-react": "concurrently \"SET BROWSER=none && yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pack": "npm run build && electron-builder -c.extraMetadata.main=build/electron.js"
+  },
+  "build": {
+    "extends": null,
+    "appId":"com.example.cra",
+    "files": [
+      "dist/**/*",
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   },
   "eslintConfig": {
     "extends": [
